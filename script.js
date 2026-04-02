@@ -1,7 +1,6 @@
-const button = document.getElementById('thisButton')
+const button = document.getElementById('thisButton');
+button.addEventListener("click", function(){
+  document.getElementById('message').innerText = "button was clicked!";
+});
 
-button.addEventListener("click", clickThisButton)
 
-function clickThisButton(){
-  alert("hello guys!")
-}
