@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Something</title>
+
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      background: white;
+      color: black;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: transform 0.1s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      min-height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Click something.</h1>
+
+  <div class="grid" id="grid"></div>
+
+  <div id="message">...</div>
+
+  <script>
+    const grid = document.getElementById("grid");
+    const message = document.getElementById("message");
+
+    const texts = [
+      "this one?", "no", "try again", "not that",
+      "wrong", "keep going", "almost", "why?",
+      "stop", "don't click me", "too late",
+      "again", "nothing here", "??", "ok"
+    ];
+
+    // create 25 buttons
+    for (let i = 0; i < 25; i++) {
+      let btn = document.createElement("button");
+      btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+      btn.addEventListener("click", () => {
+        // change message
+        message.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+        // small chaos: button changes text when clicked
+        btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+        // slight visual shift
+        btn.style.background = "black";
+        btn.style.color = "white";
+      });
+
+      grid.appendChild(btn);
+    }
+  </script>
+
+</body>
+</html>
