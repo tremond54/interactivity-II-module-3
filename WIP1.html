@@ -8,39 +8,29 @@
     body {
       background: black;
       color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
+      font-family: sans-serif;
+      text-align: center;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 10px;
+      width: 80%;
+      margin: 20px auto;
     }
 
     button {
-      padding: 20px;
+      padding: 15px;
+      border: none;
       background: white;
       color: black;
-      border: none;
       cursor: pointer;
-      font-size: 0.9rem;
-      transition: transform 0.1s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
     }
 
     #message {
-      margin-top: 30px;
-      font-size: 1.2rem;
-      min-height: 40px;
+      margin-top: 20px;
+      font-size: 20px;
     }
   </style>
 </head>
@@ -50,7 +40,6 @@
   <h1>Click something.</h1>
 
   <div class="grid" id="grid"></div>
-
   <div id="message">...</div>
 
   <script>
@@ -64,24 +53,44 @@
       "again", "nothing here", "??", "ok"
     ];
 
-    // create 25 buttons
+    const moods = [
+      "leave me alone",
+      "again?",
+      "stop clicking",
+      "ok fine...",
+      "why tho",
+      "bro what",
+      "you serious?"
+    ];
+
+    const allButtons = [];
+
+    // create buttons
     for (let i = 0; i < 25; i++) {
       let btn = document.createElement("button");
+
+      // random starting text
       btn.innerText = texts[Math.floor(Math.random() * texts.length)];
 
+      // click event
       btn.addEventListener("click", () => {
-        // change message
-        message.innerText = texts[Math.floor(Math.random() * texts.length)];
 
-        // small chaos: button changes text when clicked
-        btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        // talking (personality)
+        let randomMood = moods[Math.floor(Math.random() * moods.length)];
+        message.innerText = randomMood;
 
-        // slight visual shift
-        btn.style.background = "black";
-        btn.style.color = "white";
+        // chaos mode (all buttons change)
+        allButtons.forEach(b => {
+          b.innerText = texts[Math.floor(Math.random() * texts.length)];
+        });
+
+        // optional: background glitch
+        document.body.style.background =
+          `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
       });
 
       grid.appendChild(btn);
+      allButtons.push(btn);
     }
   </script>
 
