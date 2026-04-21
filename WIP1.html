@@ -43,17 +43,17 @@
   <div id="message">...</div>
 
   <script>
-    const grid = document.getElementById("grid");
-    const message = document.getElementById("message");
+    let grid = document.getElementById("grid");
+    let message = document.getElementById("message");
 
-    const texts = [
+    let texts = [
       "this one?", "no", "try again", "not that",
       "wrong", "keep going", "almost", "why?",
       "stop", "don't click me", "too late",
       "again", "nothing here", "??", "ok"
     ];
 
-    const moods = [
+    let moods = [
       "leave me alone",
       "again?",
       "stop clicking",
@@ -63,28 +63,23 @@
       "you serious?"
     ];
 
-    const allButtons = [];
+    let allButtons = [];
 
-    // create buttons
+    // create 25 buttons
     for (let i = 0; i < 25; i++) {
       let btn = document.createElement("button");
 
-      // random starting text
       btn.innerText = texts[Math.floor(Math.random() * texts.length)];
 
-      // click event
       btn.addEventListener("click", () => {
 
-        // talking (personality)
         let randomMood = moods[Math.floor(Math.random() * moods.length)];
         message.innerText = randomMood;
 
-        // chaos mode (all buttons change)
         allButtons.forEach(b => {
           b.innerText = texts[Math.floor(Math.random() * texts.length)];
         });
 
-        // optional: background glitch
         document.body.style.background =
           `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
       });
