@@ -6,31 +6,55 @@
 
   <style>
     body {
-      background: black;
+      background: linear-gradient(135deg, black, #111, #222);
       color: white;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
+      transition: background 0.3s;
+    }
+
+    h1 {
+      margin-top: 30px;
+      letter-spacing: 2px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
+      gap: 12px;
       width: 80%;
-      margin: 20px auto;
+      margin: 30px auto;
     }
 
     button {
       padding: 15px;
       border: none;
-      background: white;
+      border-radius: 10px;
+      background: #fff;
       color: black;
       cursor: pointer;
+      font-weight: bold;
+      position: relative;
+      transition: 0.2s;
+      box-shadow: 0 0 8px rgba(255,255,255,0.2);
+    }
+
+    button:hover {
+      background: black;
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 15px white;
+    }
+
+    button:active {
+      transform: scale(0.95);
     }
 
     #message {
-      margin-top: 20px;
-      font-size: 20px;
+      margin-top: 25px;
+      font-size: 22px;
+      opacity: 0.9;
+      min-height: 30px;
     }
   </style>
 </head>
@@ -65,23 +89,44 @@
 
     let allButtons = [];
 
-    // create 25 buttons
     for (let i = 0; i < 25; i++) {
       let btn = document.createElement("button");
 
       btn.innerText = texts[Math.floor(Math.random() * texts.length)];
 
       btn.addEventListener("click", () => {
+        let currentWord = btn.innerText;
 
-        let randomMood = moods[Math.floor(Math.random() * moods.length)];
-        message.innerText = randomMood;
+        // IF STATEMENTS (personality)
+        if (currentWord === "stop") {
+          message.innerText = "you were told to stop";
+        } else if (currentWord === "no") {
+          message.innerText = "still not the right one";
+        } else if (currentWord === "almost") {
+          message.innerText = "close, but not enough";
+        } else if (currentWord === "don't click me") {
+          message.innerText = "you clicked it anyway";
+        } else {
+          let randomMood = moods[Math.floor(Math.random() * moods.length)];
+          message.innerText = randomMood;
+        }
 
+        // CHAOS + MOVEMENT
         allButtons.forEach(b => {
           b.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+          let moveX = Math.floor(Math.random() * 40) - 20;
+          let moveY = Math.floor(Math.random() * 40) - 20;
+
+          b.style.left = moveX + "px";
+          b.style.top = moveY + "px";
         });
 
+        // BACKGROUND CHANGE
         document.body.style.background =
-          `rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255})`;
+          `linear-gradient(135deg,
+          rgb(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}),
+          black)`;
       });
 
       grid.appendChild(btn);
